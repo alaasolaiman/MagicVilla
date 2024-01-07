@@ -437,19 +437,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AA6\\.nuget\\packages\\": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\D\\netways\\Training\\projects\\MagicVilla\\MagicVilla_WebAPI\\MagicVilla_WebAPI.csproj",
+      "projectUniqueName": "D:\\netways\\projects\\MagicVilla\\MagicVilla_WebAPI\\MagicVilla_WebAPI.csproj",
       "projectName": "MagicVilla_WebAPI",
-      "projectPath": "C:\\D\\netways\\Training\\projects\\MagicVilla\\MagicVilla_WebAPI\\MagicVilla_WebAPI.csproj",
-      "packagesPath": "C:\\Users\\AA6\\.nuget\\packages\\",
-      "outputPath": "C:\\D\\netways\\Training\\projects\\MagicVilla\\MagicVilla_WebAPI\\obj\\",
+      "projectPath": "D:\\netways\\projects\\MagicVilla\\MagicVilla_WebAPI\\MagicVilla_WebAPI.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "D:\\netways\\projects\\MagicVilla\\MagicVilla_WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\AA6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
