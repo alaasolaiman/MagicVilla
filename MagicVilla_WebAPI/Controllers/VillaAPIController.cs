@@ -12,10 +12,10 @@ namespace MagicVilla_WebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas()
         {
-            return Ok(VillaStore.villaList);
+            return Ok(VillaStore.VillaList);
         }  
         
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name ="GetVilla")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)] 
@@ -29,7 +29,7 @@ namespace MagicVilla_WebAPI.Controllers
                 return BadRequest();
             }
 
-            var villa = VillaStore.villaList.FirstOrDefault(u => u.Id == id);
+            var villa = VillaStore.VillaList.FirstOrDefault(u => u.Id == id);
             if (villa == null)
             {
                 return NotFound();
@@ -39,11 +39,19 @@ namespace MagicVilla_WebAPI.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<VillaDTO> CreateVilla([FromBody]VillaDTO villaDTO)
-        {
+        {   
+            /*If api controller data annotations 
+              is removed we can handle  the 
+              validation errors (specified in data notations)*/
+            
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
             if (villaDTO is null)
             {
                 return BadRequest(villaDTO);
@@ -51,10 +59,36 @@ namespace MagicVilla_WebAPI.Controllers
             if (villaDTO.Id > 0) {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            villaDTO.Id = VillaStore.villaList.OrderByDescending(u => u.Id).First().Id + 1;
-            VillaStore.villaList.Add(villaDTO);
 
-            return Ok(villaDTO);
+            if (VillaStore.VillaList.FirstOrDefault(u => u.Name.ToLower() == villaDTO.Name.ToLower() ) != null)
+            {
+                ModelState.AddModelError("CustomError", "Villa already Exists");
+                return BadRequest(ModelState);
+            }
+            villaDTO.Id = VillaStore.VillaList.OrderByDescending(u => u.Id).First().Id + 1;
+            VillaStore.VillaList.Add(villaDTO);
+
+            return CreatedAtRoute("GetVilla",new {id = villaDTO.Id}, villaDTO);
+        }
+
+        [HttpDelete("{id:int}", Name = "DeleteVilla")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteVilla(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
+            var villa = VillaStore.VillaList.FirstOrDefault(u => u.Id == id);
+            if (villa == null)
+            {
+                return NotFound();
+            }
+            VillaStore.VillaList.Remove(villa);
+            return NoContent();
         }
     }
 }
