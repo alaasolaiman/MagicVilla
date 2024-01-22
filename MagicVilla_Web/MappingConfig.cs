@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using MagicVilla_Web.Models;
+using MagicVilla_Web.Models.Dto.VillaDTO;
+using MagicVilla_Web.Models.Dto.VillaNumberDTo;
+
+namespace MagicVilla_Web
+{
+    public class MappingConfig : Profile
+    {
+        public MappingConfig()
+        {
+            CreateMap<VillaDTO, VillaCreateDTO>().ReverseMap();
+            CreateMap<VillaDTO, VillaUpdateDTO>().ReverseMap();
+        }
+    }
+}

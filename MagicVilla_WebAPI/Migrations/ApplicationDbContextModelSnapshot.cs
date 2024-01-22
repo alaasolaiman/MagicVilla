@@ -70,7 +70,7 @@ namespace MagicVilla_WebAPI.Migrations
                         {
                             Id = 1,
                             Amenity = "Private Pool, Wi-Fi, Air Conditioning",
-                            CreatedDate = new DateTime(2024, 1, 15, 22, 50, 54, 115, DateTimeKind.Local).AddTicks(4165),
+                            CreatedDate = new DateTime(2024, 1, 20, 12, 10, 55, 34, DateTimeKind.Local).AddTicks(7993),
                             Details = "A stunning luxury villa with breathtaking views.",
                             ImageUrl = "https://example.com/luxury-villa.jpg",
                             Name = "Luxury Villa",
@@ -83,7 +83,7 @@ namespace MagicVilla_WebAPI.Migrations
                         {
                             Id = 2,
                             Amenity = "Beach Access, BBQ Area, Ocean View",
-                            CreatedDate = new DateTime(2024, 1, 15, 22, 50, 54, 115, DateTimeKind.Local).AddTicks(4202),
+                            CreatedDate = new DateTime(2024, 1, 20, 12, 10, 55, 34, DateTimeKind.Local).AddTicks(8036),
                             Details = "A cozy villa by the beach, perfect for a relaxing getaway.",
                             ImageUrl = "https://example.com/seaside-villa.jpg",
                             Name = "Seaside Retreat",
@@ -92,6 +92,42 @@ namespace MagicVilla_WebAPI.Migrations
                             Sqft = 2000,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("MagicVilla_WebAPI.Models.VillaNumber", b =>
+                {
+                    b.Property<int>("VillaNo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SpecialDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("VillaNo");
+
+                    b.HasIndex("VillaId");
+
+                    b.ToTable("VillaNumbers");
+                });
+
+            modelBuilder.Entity("MagicVilla_WebAPI.Models.VillaNumber", b =>
+                {
+                    b.HasOne("MagicVilla_WebAPI.Models.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Villa");
                 });
 #pragma warning restore 612, 618
         }
